@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Скоро запуск</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .bg-blur {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.6), transparent);
+      filter: blur(120px);
+      animation: move 10s infinite alternate ease-in-out;
+    }
+
+    .bg-blur:nth-child(2) {
+      background: radial-gradient(circle, rgba(236,72,153,0.6), transparent);
+      animation-duration: 12s;
+    }
+
+    @keyframes move {
+      from { transform: translate(-100px, -100px); }
+      to { transform: translate(100px, 100px); }
+    }
+
+    .container {
+      position: relative;
+      text-align: center;
+      z-index: 2;
+      padding: 40px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+      animation: fadeIn 1.5s ease forwards;
+      width: 340px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, #3b82f6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      padding: 12px;
+      width: 100%;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(90deg, #3b82f6, #ec4899);
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(59,130,246,0.4);
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 10px;
+      outline: none;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    .hidden { display: none; }
+
+    .success {
+      font-size: 15px;
+      color: #4ade80;
+      margin-top: 15px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-blur"></div>
+<div class="bg-blur"></div>
+
+<div class="container">
+  <h1>Мы готовим кое-что мощное 🚀</h1>
+  <p>Скоро запустим продукт, который тебе точно зайдет.
+  Хочешь узнать первым?</p>
+
+  <button class="btn" id="openForm">Узнать первым</button>
+
+  <div id="form" class="hidden">
+    <input type="email" id="email" class="input" placeholder="Введи свой email">
+    <button class="btn" onclick="submitEmail()">Отправить</button>
+  </div>
+
+  <div id="success" class="success hidden">🔥 Готово. Жди, скоро все узнаешь.</div>
+</div>
+
+<div class="footer">© 2026</div>
+
+<script>
+  const openBtn = document.getElementById('openForm');
+  const form = document.getElementById('form');
+  const success = document.getElementById('success');
+
+  openBtn.addEventListener('click', () => {
+    form.classList.remove('hidden');
+    openBtn.style.display = 'none';
+  });
+
+  function submitEmail() {
+    const email = document.getElementById('email').value;
+
+    if (!email || !email.includes('@')) {
+      alert('Введи нормальный email');
+      return;
+    }
+
+    form.style.display = 'none';
+    success.classList.remove('hidden');
+  }
+
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+    document.querySelectorAll('.bg-blur').forEach(el => {
+      el.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  });
+</script>
+
+</body>
+</html>
